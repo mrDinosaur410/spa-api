@@ -1,20 +1,18 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { useParams, Await } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Await, useLoaderData } from "react-router-dom";
 import UserComponent from "../components/UserComponent";
 import AlbumsComponent from "../components/AlbumsComponent";
 import { Api } from "../utils/api";
 import NotFound from "./NotFound";
 
+export const loader = ({ params: { id } }) => {
+  const user = Api.getUserById(id);
+  const albums = Api.getUserAlbumsById(id);
+  return { user: user, albums: albums };
+};
+
 const User = () => {
-  const params = useParams();
-  const [user, setUser] = useState({});
-  const [albums, setAlbums] = useState([]);
-
-  useEffect(() => {
-    setUser(Api.getUserById(params.id));
-    setAlbums(Api.getUserAlbumsById(params.id));
-  }, [params]);
-
+  const { user, albums } = useLoaderData();
   return (
     <Suspense fallback={<>Loading</>}>
       <Await resolve={Promise.all([user, albums])} errorElement={<NotFound />}>

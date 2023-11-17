@@ -1,16 +1,16 @@
-import React, { useEffect, Suspense } from "react";
-import { Link, useParams, Await } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Link, Await, useLoaderData } from "react-router-dom";
 import { toUpper } from "../utils/utils";
 import { Api } from "../utils/api";
-import { useState } from "react";
 import NotFound from "./NotFound";
 
+export const loader = ({ params: { id } }) => {
+  const data = Api.getAlbumById(id);
+  return data;
+};
+
 const Album = () => {
-  const params = useParams();
-  const [data, setData] = useState({});
-  useEffect(() => {
-    setData(Api.getAlbumById(params.id));
-  }, [params]);
+  const data = useLoaderData();
 
   return (
     <Suspense fallback={<>Loading</>}>
@@ -45,37 +45,6 @@ const Album = () => {
       </Await>
     </Suspense>
   );
-  /* return (
-    <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        album && (
-          <div>
-            <div className="mb-10">
-              <h1 className="text-lg mb-5">{toUpper(album.title)}</h1>
-              <div className="flex gap-2">
-                <span>Created by: </span>
-                <Link
-                  className="hover:text-blue-700 hover:underline"
-                  to={`/users/${album.userId}`}
-                >
-                  {album.users.find((user) => user.id == album.userId).name}
-                </Link>
-              </div>
-            </div>
-            <div className="grid grid-cols-4 gap-5">
-              {album.photos.map((photo) => (
-                <div>
-                  <img src={photo.url} alt="image" />
-                </div>
-              ))}
-            </div>
-          </div>
-        )
-      )}
-    </div>
-  ); */
 };
 
 export default Album;

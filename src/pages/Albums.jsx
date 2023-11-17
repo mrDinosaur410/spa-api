@@ -1,14 +1,16 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { Link, Await } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Link, Await, useLoaderData } from "react-router-dom";
 import { IoAlbumsOutline } from "react-icons/io5";
 import { toUpper } from "../utils/utils";
 import { Api } from "../utils/api";
 
+export const loader = () => {
+  const albums = Api.getAllAlbums();
+  return albums;
+};
+
 const Albums = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    setData(Api.getAllAlbums());
-  }, []);
+  const data = useLoaderData();
   return (
     <Suspense fallback={<>Loading</>}>
       <Await resolve={data}>

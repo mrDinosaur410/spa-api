@@ -1,13 +1,14 @@
-import React, { useEffect, Suspense, useState } from "react";
-import { Link, Await } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Link, Await, useLoaderData } from "react-router-dom";
 import { Api } from "../utils/api";
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    setUsers(Api.getAllusers());
-  }, []);
+export const loader = () => {
+  const users = Api.getAllusers();
+  return users;
+};
 
+const Users = () => {
+  const users = useLoaderData();
   return (
     <Suspense fallback={<>Loading</>}>
       <Await resolve={users}>

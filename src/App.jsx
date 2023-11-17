@@ -1,14 +1,13 @@
 import React from "react";
 import Layout from "./components/Layout";
-import Users from "./pages/Users";
-import User from "./pages/User";
+import Users, { loader as usersLoader } from "./pages/Users";
+import User, { loader as userLoader } from "./pages/User";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Albums from "./pages/Albums";
-import Album from "./pages/Album";
+import Albums, { loader as albumsLoader } from "./pages/Albums";
+import Album, { loader as albumLoader } from "./pages/Album";
 import NotFound from "./pages/NotFound";
 import Home from "./pages/Home";
 
- 
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -22,18 +21,22 @@ const App = () => {
         },
         {
           path: "/users",
+          loader: usersLoader,
           element: <Users />,
         },
         {
           path: "/users/:id",
+          loader: userLoader,
           element: <User />,
         },
         {
           path: "/albums",
+          loader: albumsLoader,
           element: <Albums />,
         },
         {
           path: "/albums/:id",
+          loader: albumLoader,
           element: <Album />,
         },
         {

@@ -4,8 +4,6 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 const Layout = () => {
   const location = useLocation();
 
-  console.log(location.pathname);
-
   return (
     <div>
       <header className="flex justify-end p-10">
