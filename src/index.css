@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 3%;
+}
+
+header {
+    margin-bottom: 3%;
+}
+
+footer,
+header {
+    width: 90%;
+    margin-left: 5%;
+}
+
+li {
+    display: flex;
+    column-gap: 10px;
+    margin-bottom: 5px;
+}
+
+.notFound {
+    margin: 10% auto;
+}
+
+.home {
+    margin: 15% auto;
+}
